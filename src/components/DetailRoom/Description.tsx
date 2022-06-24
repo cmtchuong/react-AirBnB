@@ -12,8 +12,8 @@ export const Payment: React.FC = () => {
         <div>
             <div className="py-6 border-b border-gray-300 font-normal">
                 <p className="text__description">
-                    Căn hộ xinh đẹp này ở nhà DA nằm ở tầng 7 của tòa nhà mới
-                    của chúng tôi - Nhà ở DA 32. Nó có một phòng ngủ, một phòng
+                    Căn hộ xinh đẹp này ở nhà CBS nằm ở tầng 7 của tòa nhà mới
+                    của chúng tôi - Nhà ở CBS-81. Nó có một phòng ngủ, một phòng
                     tắm và một phòng khách mở. Nó được thiết kế rất đẹp. Cung
                     cấp đầy đủ nội thất và thiết bị hiện đại. Cửa sổ kính lớn
                     cho phép ánh sáng tự nhiên đi vào. Sàn gỗ giúp căn hộ dễ
@@ -50,8 +50,8 @@ export const Payment: React.FC = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <Text id="modal-description">
-                    Căn hộ xinh đẹp này ở nhà DA nằm ở tầng 7 của tòa nhà mới
-                    của chúng tôi - Nhà ở DA 32. Nó có một phòng ngủ, một phòng
+                    Căn hộ xinh đẹp này ở nhà CBS nằm ở tầng 7 của tòa nhà mới
+                    của chúng tôi - Nhà ở CBS-81. Nó có một phòng ngủ, một phòng
                     tắm và một phòng khách mở. Nó được thiết kế rất đẹp. Cung
                     cấp đầy đủ nội thất và thiết bị hiện đại. Cửa sổ kính lớn
                     cho phép ánh sáng tự nhiên đi vào. Sàn gỗ giúp căn hộ dễ

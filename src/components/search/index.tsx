@@ -1,17 +1,6 @@
-import React, { useEffect, useRef } from "react";
-import {
-    MinusSmIcon,
-    PlusSmIcon,
-    SearchIcon,
-    UsersIcon,
-} from "@heroicons/react/solid";
-import { Logo } from "@components";
-import { Button } from "@components/button";
-import { AirbnbIcon, GlobeIcon, MenuIcon, UserIcon } from "@components/icons";
+import React, { useRef } from "react";
+import { MinusSmIcon, PlusSmIcon, SearchIcon } from "@heroicons/react/solid";
 import { useState } from "react";
-import { TextField } from "@material-ui/core";
-import { Menu } from "@components/menu/Menu";
-import { Router } from "next/router";
 import { useRouter } from "next/router";
 
 import "react-date-range/dist/styles.css"; // main css file
@@ -22,31 +11,25 @@ import { addDays, format } from "date-fns";
 
 import { useOnClickOutside } from "usehooks-ts";
 
-import Autocomplete from "@mui/material/Autocomplete";
-import axios from "axios";
+import http from "@utils/http";
 import { API_ENDPOINTS } from "@utils/apiEndpoints";
-import { useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery } from "react-query";
 import { Loading } from "@nextui-org/react";
 
-import LocationSearch from "@components/search/LocationSearch";
+export interface RootObject {
+    deleteAt?: boolean;
+    _id?: string;
+    name?: string;
+    province?: string;
+    country?: string;
+    valueate?: number;
+    __v?: number;
+    image?: string;
+}
 
 interface Props {
     place?: string;
     className?: string;
-}
-
-export interface Location {
-    name: string;
-    province: string;
-    country: string;
-}
-export interface RootObject {
-    deleteAt: boolean;
-    _id: string;
-    location: Location[];
-    valueate?: number;
-    __v: number;
-    image: string;
 }
 
 // const getLocations = async () =>
@@ -56,15 +39,24 @@ export interface RootObject {
 //         )
 //     ).json();
 
-export const getStaticProps = async () => {
-    const res = await axios.get(`airbnb.cybersoft.edu.vn${API_ENDPOINTS.SEARCH}`);
-    return {
-        props: {
-            locations: res.data,
-        },
-    };
+const getLocations = async () => {
+    const response = await http.get(
+        `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.SEARCH}`,
+    );
+    return response.data;
 };
 
+export async function getStaticProps() {
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery<RootObject[]>("info", getLocations);
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    };
+}
 
 export const Search: React.FC<Props> = ({
     place = "Bạn sắp đi đâu?",
@@ -72,38 +64,12 @@ export const Search: React.FC<Props> = ({
 }) => {
     const Router = useRouter();
     const [searchInput, setSearchInput] = useState("");
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchInput(event.target.value);
-    };
-
-    // const { data, isLoading, isFetching } = useQuery<RootObject>(
-    //     "info",
-    //     getLocations,
-    // );
-    // console.log(data);
-
-    // if (!data) {
-    //     return <div>Dữ liệu không tìm thấy :)</div>;
-    // }
-
-    // if (isLoading) return <Loading type="points" />;
-
     const [openDay, setOpenDay] = useState(false);
     const [openLocation, setOpenLocation] = useState(false);
 
     const [openGuests, setOpenGuests] = useState(false);
     const [adults, setAdults] = useState(1);
     const [children, setChildren] = useState(0);
-
-    const guests = adults + children;
-    // const [startDate, setStartDate] = useState(new Date());
-    // const [endDate, setEndDate] = useState(new Date());
-
-    // const handleSelect = (date: any) => {
-    //     setStartDate(date.selection.startDate);
-    //     setEndDate(date.selection.endDate);
-    // };
 
     const [pickDay, setPickDay] = useState([
         {
@@ -112,6 +78,10 @@ export const Search: React.FC<Props> = ({
             key: "selection",
         },
     ]);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchInput(event.target.value);
+    };
 
     const ref = useRef(null);
 
@@ -131,7 +101,6 @@ export const Search: React.FC<Props> = ({
 
     const resetInput = () => {
         setOpenDay(false);
-       
     };
 
     const formattedStartDate = format(
@@ -139,6 +108,63 @@ export const Search: React.FC<Props> = ({
         "dd/MM/yyyy",
     );
     const formattedEndDate = format(new Date(pickDay[0].endDate), "dd/MM/yyyy");
+
+    const { data, isLoading, isFetching } = useQuery<RootObject[]>(
+        "info",
+        getLocations,
+    );
+    console.log(data);
+
+    if (isLoading) {
+        return (
+            <div className="p-4 mx-[25%]">
+                {" "}
+                <Loading type="points" />{" "}
+            </div>
+        );
+    }
+
+    if (!data) {
+        return <p className="">Dữ liệu không tìm thấy :)</p>;
+    }
+
+   
+
+    const guests = adults + children;
+    // const [startDate, setStartDate] = useState(new Date());
+    // const [endDate, setEndDate] = useState(new Date());
+
+    // const handleSelect = (date: any) => {
+    //     setStartDate(date.selection.startDate);
+    //     setEndDate(date.selection.endDate);
+    // };
+
+    const cleanAccents = (str?: string): string => {
+        if (!str) return 
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+        str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+        str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+        str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+        str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+        str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+        str = str.replace(/Đ/g, "D");
+        // Combining Diacritical Marks
+        str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // huyền, sắc, hỏi, ngã, nặng 
+        str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // mũ â (ê), mũ ă, mũ ơ (ư)
+        
+        
+    
+        return str;
+    }
+
+   
 
     return (
         <div className={className}>
@@ -149,7 +175,6 @@ export const Search: React.FC<Props> = ({
 
                         <input
                             type="text"
-                            
                             onChange={(e) => handleChange(e)}
                             value={searchInput || ""}
                             placeholder={place}
@@ -160,18 +185,42 @@ export const Search: React.FC<Props> = ({
 
                     {openLocation && (
                         <div
-                            className="absolute bg-white lg:w-1/2 w-full h-[100px] top-[70px] z-10 border border-gray-300 shadow-listProduct rounded-xl"
+                            className="absolute bg-white lg:w-1/2 w-full h-[200px] top-[70px] z-10 border border-gray-300 shadow-listProduct rounded-xl overflow-y-auto"
                             ref={ref}
                         >
-
-                        <LocationSearch inputString={searchInput} />
-
+                            <div className="mx-[6%] my-2 ">
+                                
+                                {data?.map((i) => {
+                                    
+                                    return (
+                                        <div className="flex flex-col ">
+                                            {((((cleanAccents(i?.name))?.includes(cleanAccents(searchInput))) || ((cleanAccents(i?.province))?.includes(cleanAccents(searchInput)))) || (searchInput === "")) && (
+                                        
+                                        <a
+                                            className="hover:bg-gray-500 space-y-3 "
+                                            key={i._id}
+                                            onClick={() => {
+                                                setSearchInput(i?.name + ", " + i?.province);
+                                                setOpenLocation(!openLocation)
+                                            }}
+                                        >
+                                            {i?.name}, {i?.province} {" "}
+                                        </a>
+                                            )}
+                                        </div>
+                                    );
+                                    
+                                })}
+                            </div>
                         </div>
                     )}
                     {/* <div className="border-r h-[30px]"></div> */}
                 </div>
 
-                <div className="hidden lg:inline-block border-l border-gray-500  flex-1" ref={ref}>
+                <div
+                    className="hidden lg:inline-block border-l border-gray-500  flex-1"
+                    ref={ref}
+                >
                     <div
                         className="hover:bg-gray-500 cursor-pointer rounded-40 px-5 py-1 "
                         onClick={() => {
@@ -184,7 +233,10 @@ export const Search: React.FC<Props> = ({
                     </div>
                 </div>
 
-                <div className="hidden lg:inline-block border-l border-gray-500  flex-1" ref={ref}>
+                <div
+                    className="hidden lg:inline-block border-l border-gray-500  flex-1"
+                    ref={ref}
+                >
                     <div
                         className="hover:bg-gray-500 cursor-pointer rounded-40 px-5 py-1 "
                         onClick={() => {
@@ -202,8 +254,7 @@ export const Search: React.FC<Props> = ({
                         <div
                             className=" cursor-pointer  lg:px-5 lg:py-1 flex pl-4 "
                             onClick={() => {
-                                
-                                    setOpenGuests(!openGuests);
+                                setOpenGuests(!openGuests);
                             }}
                         >
                             <div className="hidden lg:inline-block">
@@ -223,7 +274,7 @@ export const Search: React.FC<Props> = ({
                                                 pickDay[0].startDate.toISOString(),
                                             endAt: pickDay[0].endDate.toISOString(),
                                             guests: guests,
-                                            page: 1,
+                                            
                                         },
                                     });
                                 }}
@@ -236,7 +287,10 @@ export const Search: React.FC<Props> = ({
             </div>
 
             {openDay && (
-                <div className=" flex flex-col col-span-3 items-center absolute z-10 mx-[30%]" ref={ref}>
+                <div
+                    className=" flex flex-col col-span-3 items-center absolute z-10 mx-[30%]"
+                    ref={ref}
+                >
                     <DateRangePicker
                         onChange={(item: { selection: any }) =>
                             setPickDay([item.selection])
@@ -295,7 +349,10 @@ export const Search: React.FC<Props> = ({
             )}
 
             {openGuests && (
-                <div className="flex flex-col absolute z-10 space-y-6 p-4 border-t border-gray-300 shadow-product rounded-xl ml-[60%] mr-[10%] bg-white" ref={ref}>
+                <div
+                    className="flex flex-col absolute z-10 space-y-6 p-4 border-t border-gray-300 shadow-product rounded-xl ml-[60%] mr-[10%] bg-white"
+                    ref={ref}
+                >
                     <div className="flex justify-between ">
                         <div className="mr-6">
                             <h2 className="text-black"> Người lớn </h2>

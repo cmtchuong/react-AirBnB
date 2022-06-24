@@ -13,12 +13,12 @@ export const Payment: React.FC = () => {
             <div className="flex flex-col py-6 border-b border-gray-300">
                     <div className="flex">
                         <img
-                            src="https://media.discordapp.net/attachments/795114479133786135/972314215165616208/IMG_1227.jpg?width=497&height=662"
+                            src="https://media.discordapp.net/attachments/890493745982767111/988728915382128680/unknown.png"
                             className="w-16 h-16 rounded-full cursor-pointer"
                         ></img>
                         <div className="flex-grow px-4">
                             <h2 className="text-black text-2xl pt-1">
-                                Chủ nhà DA
+                                Chủ nhà CBS
                             </h2>
                             <p className="font-normal">
                                 Đã tham gia vào tháng 11 năm 2021

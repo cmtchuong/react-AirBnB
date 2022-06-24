@@ -5,10 +5,16 @@ import { VerifyIcon } from "@components/icons";
 import { CheckIcon, StarIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 
-export const Payment: React.FC = () => {
+interface props {
+    halfPrice: boolean;
+}
+
+export const Payment: React.FC<props> = ({
+    halfPrice = false
+}) => {
     const Router = useRouter();
 
-    const { price, endDate } = Router.query;
+    const { price, endAt } = Router.query;
 
     return (
         <div className="py-6 border-b border-gray-300">
@@ -41,6 +47,9 @@ export const Payment: React.FC = () => {
                             type="radio"
                             value="0"
                             checked
+                            onClick={() => {
+                                halfPrice = false
+                            }}
                         ></input>
                     </div>
                 </div>
@@ -58,7 +67,7 @@ export const Payment: React.FC = () => {
                         <p className="m-0">
                             Thanh toán ngay {"$" + price / 2} và phần còn lại{" "}
                             {"($" + price / 2 + ") "}sẽ tự động được trừ vào
-                            cùng phương thức thanh toán này vào {endDate}.
+                            cùng phương thức thanh toán này vào {endAt}.
                         </p>
                         <p>Không phát sinh phụ phí</p>
 
@@ -74,6 +83,9 @@ export const Payment: React.FC = () => {
                             id="0"
                             type="radio"
                             value="0"
+                            onClick={() => {
+                                halfPrice = true
+                            }}
                         ></input>
                     </div>
                 </div>

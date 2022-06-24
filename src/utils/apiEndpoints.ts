@@ -4,5 +4,8 @@ export const API_ENDPOINTS = {
     LOGIN: "/api/auth/login",
     ISLOGGEDIN: "/user/auth/isLoggedIn",
     GET_ROOMS: "/api/rooms",
-    SEARCH: "/api/locations"
+    SEARCH: "/api/locations",
+    USER: "/api/users/",
+    ALL_USERS: "/api/users/pagination",
+    REVIEWS: "/api/reviews?",
 }

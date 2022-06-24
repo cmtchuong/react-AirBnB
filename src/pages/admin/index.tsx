@@ -5,6 +5,9 @@ import { VerifyIcon } from "@components/icons";
 import { CheckIcon, StarIcon } from "@heroicons/react/solid";
 import Head from "next/head";
 import Admin from "@components/admin";
+import { GetServerSideProps } from "next";
+
+import cookie from "cookie";
 
 export const AdminPage: React.FC = () => {
    
@@ -29,3 +32,25 @@ export const AdminPage: React.FC = () => {
 };
 
 export default AdminPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+    const cookies = cookie.parse(req.headers.cookie || "");
+    const value = cookies["isLoggedIn"];
+
+   
+
+    if (!value) {
+        return {
+            redirect: {
+                destination: "/login",
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: {},
+    };
+};
+
+

@@ -31,8 +31,10 @@ type User = {
     name: string;
     email: String;
     birthday: string;
-    gender: string;
+    gender: boolean;
     phoneNumber: number;
+    address: string;
+    type: string;
 };
 
 export const Register: React.FC = () => {
@@ -48,9 +50,9 @@ export const Register: React.FC = () => {
     const onSubmit = handleSubmit(async (user) => {
         setIsLoading(true);
         delete user.confirmPassword;
-        const response = await axios
+        const response = await http
             .post(
-                `https://cc62e73f33af4d5eb355d601efc35466-3afda50d-vm-80.vlab2.uit.edu.vn/api/v1${API_ENDPOINTS.REGISTER}`,
+                `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.REGISTER}`,
                 user,
             )
             .then((res) => {
@@ -310,74 +312,96 @@ export const Register: React.FC = () => {
                                 </label>
 
                                 <div className="flex pb-4">
-                                <label className="pb-4  flex-grow">
-                                    <div className="">
-                                        <div>
-                                            <p className="text-base">Ngày sinh</p>
-                                        </div>
-                                    <div className="rounded-lg">
-                                        <input
-                                            {...register("birthday", {
-                                                required:
-                                                    "Ngày sinh không được để trống",
-                                                pattern: {
-                                                    value: /\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])*/,
-                                                    message:
-                                                        "Ngày sinh chưa đúng định dạng",
-                                                },
-                                            })}
-                                            required
-                                            id="birthday"
-                                            name="birthday"
-                                            type="text"
-                                            placeholder="2001/1/21"
-                                            className=" text-base w-full  border border-gray-500 md:text-left text-center p-4 active:outline-black "
-                                        ></input>
-                                    </div>
-                                        {errors.birthday && (
-                                            <div className="text-red-800 font-medium text-xs my-4 p-2 border border-red-500 bg-red-300 w-max rounded-lg flex">
-                                                <ExclamationCircleIcon className="w-4 h-4 mr-1 self-center" />
-                                                {errors.birthday.message}
+                                    <label className="pb-4  flex-grow">
+                                        <div className="">
+                                            <div>
+                                                <p className="text-base">
+                                                    Ngày sinh
+                                                </p>
                                             </div>
-                                        )}
-                                    </div>
-                                </label>
+                                            <div className="rounded-lg">
+                                                <input
+                                                    {...register("birthday", {
+                                                        required:
+                                                            "Ngày sinh không được để trống",
+                                                        pattern: {
+                                                            value: /\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])*/,
+                                                            message:
+                                                                "Ngày sinh chưa đúng định dạng",
+                                                        },
+                                                    })}
+                                                    required
+                                                    id="birthday"
+                                                    name="birthday"
+                                                    type="text"
+                                                    placeholder="2001/1/21"
+                                                    className=" text-base w-full  border border-gray-500 md:text-left text-center p-4 active:outline-black "
+                                                ></input>
+                                            </div>
+                                            {errors.birthday && (
+                                                <div className="text-red-800 font-medium text-xs my-4 p-2 border border-red-500 bg-red-300 w-max rounded-lg flex">
+                                                    <ExclamationCircleIcon className="w-4 h-4 mr-1 self-center" />
+                                                    {errors.birthday.message}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </label>
 
+                                    <label className="pb-4 flex-grow">
+                                        <div className="">
+                                            <div>
+                                                <p className="text-base">
+                                                    Giới tính{" "}
+                                                    
+                                                </p>
+                                            </div>
+                                            <div className="rounded-lg flex justify-between">
+                                                <select
+                                                    {...register("gender")}
+                                                    className=" text-base w-full  border border-gray-500 md:text-left text-center p-4 active:outline-black "
+                                                >
+                                                    
+                                                    <option value="true">
+                                                        true
+                                                    </option>
+                                                    <option value="false">
+                                                        false
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
 
                                 <label className="pb-4 flex-grow">
                                     <div className="">
                                         <div>
-                                            <p className="text-base">Giới tính</p>
+                                            <p className="text-base">
+                                                Địa chỉ{" "}
+                                            </p>
                                         </div>
-                                    <div className="rounded-lg">
-                                        <input
-                                            {...register("gender", {
-                                                required:
-                                                    "Bạn chưa điền giới tính",
-                                                pattern: {
-                                                    value: /^[A-Za-z]+$/,
-                                                    message:
-                                                        "Thông tin chưa đúng định dạng",
-                                                },
-                                            })}
-                                            required
-                                            id="gender"
-                                            name="gender"
-                                            type="text"
-                                            placeholder="Nam/Nữ"
-                                            className=" text-base w-full  border border-gray-500 md:text-left text-center p-4 active:outline-black "
-                                        ></input>
-                                    </div>
+                                        <div className="rounded-lg">
+                                            <input
+                                                {...register("address", {
+                                                    required:
+                                                        "Bạn chưa điền địa chỉ",
+                                                })}
+                                                required
+                                                id="address"
+                                                name="address"
+                                                type="text"
+                                                placeholder="12/3 Đường A, Phường B, Quận C, Thành Phố D"
+                                                className=" text-base w-full  border border-gray-500 md:text-left text-center p-4 active:outline-black "
+                                            ></input>
+                                        </div>
                                         {errors.gender && (
                                             <div className="text-red-800 font-medium text-xs my-4 p-2 border border-red-500 bg-red-300 w-max rounded-lg flex">
                                                 <ExclamationCircleIcon className="w-4 h-4 mr-1 self-center" />
-                                                {errors.gender.message}
+                                                {errors.address.message}
                                             </div>
                                         )}
                                     </div>
-                                    </label>
-                                </div>
-                               
+                                </label>
 
                                 <label className="pb-4">
                                     <div className="">
@@ -425,6 +449,31 @@ export const Register: React.FC = () => {
                                         )}
                                     </div>
                                 </label>
+
+                                {/* <label className="pb-4 flex-grow">
+                                        <div className="">
+                                            <div>
+                                                <p className="text-base">
+                                                    vị trí{" "}
+                                                    
+                                                </p>
+                                            </div>
+                                            <div className="rounded-lg flex justify-between">
+                                            <input
+                                                {...register("type", {
+                                                    required:
+                                                        "Bạn chưa điền vị trí",
+                                                })}
+                                                required
+                                                id="type"
+                                                name="type"
+                                                type="text"
+                                                placeholder="12/3 Đường A, Phường B, Quận C, Thành Phố D"
+                                                className=" text-base w-full  border border-gray-500 md:text-left text-center p-4 active:outline-black "
+                                            ></input>
+                                            </div>
+                                        </div>
+                                    </label> */}
                             </div>
 
                             <div>

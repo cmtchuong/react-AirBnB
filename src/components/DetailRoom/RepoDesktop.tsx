@@ -79,10 +79,11 @@ export const DetailRoom: React.FC = (
         hasAirCon,
         hasHeating,
         hasWifi,
-        star,
-        rating,
         price,
     } = Router.query;
+
+    const star = 5;
+    const rating = 0;
 
     const [pickDay, setPickDay] = useState([
         {
@@ -155,7 +156,7 @@ export const DetailRoom: React.FC = (
                             <div className="room_1st_image ">
                                 <img
                                     className="room__img rounded-l-xl h-full hover:brightness-75 transition ease-out duration-200"
-                                    src="https://a0.muscache.com/im/pictures/9d928940-f0d1-4504-99d3-b69a5f737012.jpg?im_w=1200"
+                                    src={img}
                                 ></img>
                             </div>
                             <div>
@@ -220,11 +221,11 @@ export const DetailRoom: React.FC = (
                         <div className="flex flex-col w-[58.333333333333336%]">
                             <div className="flex flex-col pb-6 border-b border-gray-300">
                                 <h1 className="font-semibold text-black text-2xl">
-                                    {"Toàn bộ " +
-                                        homeType +
+                                    {"Toàn bộ khách sạn/nhà ở " +
+                                        
                                         " tại " +
                                         displayName +
-                                        ". Chủ nhà DA"}
+                                        ". Chủ nhà CBS"}
                                 </h1>
                                 <p className="font-normal flex">
                                     {totalGuests + "  khách ·  "}
@@ -270,8 +271,8 @@ export const DetailRoom: React.FC = (
                             </div>
                             <div className="py-6 border-b border-gray-300 font-normal">
                                 <p>
-                                    Căn hộ xinh đẹp này ở nhà DA nằm ở tầng 7
-                                    của tòa nhà mới của chúng tôi - Nhà ở DA 32.
+                                    Căn hộ xinh đẹp này ở nhà CBS nằm ở tầng 7
+                                    của tòa nhà mới của chúng tôi - Nhà ở CBS-81.
                                     Nó có một phòng ngủ, một phòng tắm và một
                                     phòng khách mở. Nó được thiết kế rất đẹp.
                                     Cung cấp đầy đủ nội thất và thiết bị hiện
@@ -289,7 +290,7 @@ export const DetailRoom: React.FC = (
                            
                             <Amenities />
 
-                            <h2 className="text-2xl mt-8 text-black">
+                            <h2 className="text-2xl mt-8 text-black" id="addDays">
                                 Chọn ngày nhận phòng
                             </h2>
                             <p className="font-normal mt-1">
@@ -627,10 +628,11 @@ export const DetailRoom: React.FC = (
                 </div> */}
 
                 <button className="w-1/4 my-10 py-3 cursor-pointer active:scale-95 active:bg-gray 100 transition transform ease-out block border rounded-xl font-medium text-black hover:bg-gray-300  duration-200 ">
-                    {rating !== "0" &&
-                        "Hiển thị tất cả " + rating + " đánh giá"}
+                    {/* {rating !== "0" &&
+                        "Hiển thị tất cả " + rating + " đánh giá"} */}
 
-                    {rating === "0" && "Đánh giá tại đây"}
+                    {/* {rating === "0" && "Đánh giá tại đây"} */}
+                    Đánh giá tại đây
                 </button>
 
                 <div className="border-b border-gray-300"></div>
@@ -638,12 +640,12 @@ export const DetailRoom: React.FC = (
                 <div className="flex flex-col py-6 border-b border-gray-300">
                     <div className="flex">
                         <img
-                            src="https://media.discordapp.net/attachments/795114479133786135/972314215165616208/IMG_1227.jpg?width=497&height=662"
+                            src="https://media.discordapp.net/attachments/890493745982767111/988728915382128680/unknown.png"
                             className="w-16 h-16 rounded-full cursor-pointer"
                         ></img>
                         <div className="flex-grow px-4">
                             <h2 className="text-black text-2xl pt-1">
-                                Chủ nhà DA
+                                Chủ nhà CBS
                             </h2>
                             <p className="font-normal">
                                 Đã tham gia vào tháng 11 năm 2021
@@ -771,7 +773,7 @@ export const DetailRoom: React.FC = (
                             chính sách hủy cho đặt phòng này.
                         </p>
 
-                        <MoreUnderline title="Thêm ngày" />
+                        <a href="#addDays"><MoreUnderline title="Thêm ngày" /></a> 
                     </div>
                 </div>
             </div>

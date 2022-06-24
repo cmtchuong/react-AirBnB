@@ -115,23 +115,9 @@ const Search: React.FC = () => {
                     <div className="xl:w-3/5 ">
                         <hr className="text-gray-300 "></hr>
                         <div className="px-4">
-                            {/* <p className="my-4 text-sm">
-                                Hơn 300 chỗ ở tại {location}{" "}
-                            </p> */}
+                           
 
-                            <p className="py-4 mt-2 ">
-                                Kiểm tra lại quy định hạn chế đi lại trong đại
-                                dịch COVID-19 trước khi đặt.
-                                <span>
-                                    {" "}
-                                    <a
-                                        className="underline"
-                                        href="https://www.airbnb.com.vn/help/topic/1418/government-travel-restrictions-and-advisories"
-                                    >
-                                        Tìm hiểu thêm
-                                    </a>
-                                </span>
-                            </p>
+                           
 
                             <InfoCards     
                             page={page}                       

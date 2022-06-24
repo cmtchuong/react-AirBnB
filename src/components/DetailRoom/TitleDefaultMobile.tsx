@@ -23,10 +23,12 @@ export const TitleDefaultMobile: React.FC = () => {
         hasAirCon,
         hasHeating,
         hasWifi,
-        star,
-        rating,
+
         price,
     } = Router.query;
+
+    const star = 5;
+    const rating = 0;
 
     return (
         <div className="py-6 border-b border-gray-300">

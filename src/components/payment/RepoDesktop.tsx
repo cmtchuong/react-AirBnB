@@ -120,6 +120,10 @@ export const Payment: React.FC = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const {price} = Router.query
+    
+    let priceToPay = parseInt(price);
+
     return (
         <div>
             <LoginHeader />
@@ -138,7 +142,7 @@ export const Payment: React.FC = () => {
 
                     <YourTrip />
 
-                    <PaymentPlan />
+                    {/* <PaymentPlan halfPrice/> */}
 
                     {/* <PaymentOption /> */}
                     <div
@@ -573,6 +577,7 @@ export const Payment: React.FC = () => {
                     <div className="border border-gray-300 rounded-xl sticky top-[20%]">
                         <ListingCard />
 
+                        
                         <PriceDetail />
                     </div>
                 </div>

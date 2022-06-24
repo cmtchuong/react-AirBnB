@@ -28,10 +28,11 @@ export const RepoMobile: React.FC = () => {
         hasAirCon,
         hasHeating,
         hasWifi,
-        star,
-        rating,
         price,
     } = Router.query;
+
+    const star = 5; 
+    const rating = 0;
 
     const [pickDay, setPickDay] = useState([
         {

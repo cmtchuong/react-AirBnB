@@ -9,7 +9,7 @@ import {
     Location,
     SwitchHorizontal,
     Logout,
-    CaretDown
+    CaretDown,
 } from "tabler-icons-react";
 import { Router, useRouter } from "next/router";
 import { User } from "@nextui-org/react";
@@ -18,6 +18,11 @@ import Locations from "@components/admin/Locations";
 import Rooms from "@components/admin/Rooms";
 import AdminDashBoard from "@components/admin/AdminDashBoard";
 import { PlusCircleIcon } from "@heroicons/react/solid";
+import http from "@utils/http";
+import { API_ENDPOINTS } from "@utils/apiEndpoints";
+import { dehydrate, QueryClient, useQuery } from "react-query";
+import { Loading } from "@nextui-org/react";
+import { removeCookies } from "cookies-next";
 
 const useStyles = createStyles((theme, _params, getRef) => {
     const icon = getRef("icon");
@@ -99,19 +104,74 @@ const useStyles = createStyles((theme, _params, getRef) => {
     };
 });
 
-const data = [
+const dataNav = [
     { link: "#", label: "Trang chủ", icon: BrandAirbnb },
     { link: "#users", label: "Quản lý người dùng", icon: UserCircle },
     { link: "#location", label: "Quản lý vị trí", icon: Location },
     { link: "#rooms", label: "Quản lý phòng", icon: Home },
 ];
 
+export interface RootObject {
+    tickets: any[];
+    deleteAt: boolean;
+    _id: string;
+    name: string;
+    email: string;
+
+    phone: string;
+    gender: boolean;
+    address: string;
+    type: boolean;
+    __v: number;
+    avatar: string;
+    birthday: string;
+}
+
+const getUsers = async () => {
+    const response = await http.get(
+        `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.USER}616915dbefe193001c0a5a6d`,
+    );
+    return response.data;
+};
+
+export async function getStaticProps() {
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery<RootObject>("info", getUsers);
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    };
+}
+
 export const AdminCenter: React.FC = () => {
     const { classes, cx } = useStyles();
     const [active, setActive] = useState("Billing");
     const [tab, setTab] = useState("#");
+    const Router = useRouter();
 
-    const links = data.map((item) => (
+    const { data, isLoading, isFetching } = useQuery<RootObject>(
+        "info",
+        getUsers,
+    );
+    console.log(data);
+
+    if (isLoading) {
+        return (
+            <div className="p-4 mx-[25%]">
+                {" "}
+                <Loading />{" "}
+            </div>
+        );
+    }
+
+    if (!data) {
+        return <p className="">Dữ liệu không tìm thấy :)</p>;
+    }
+
+    const links = dataNav.map((item) => (
         <a
             className={cx(classes.link, {
                 [classes.linkActive]: item.label === active,
@@ -131,7 +191,12 @@ export const AdminCenter: React.FC = () => {
 
     return (
         <div className="flex">
-            <Navbar height={700} width={{ sm: 300 }} p="md">
+            <Navbar
+                height={700}
+                width={{ sm: 300 }}
+                p="md"
+                className="sticky top-0"
+            >
                 <Navbar.Section grow>
                     <Group className={classes.header} position="apart">
                         <div className="mx-auto">
@@ -153,11 +218,14 @@ export const AdminCenter: React.FC = () => {
                     </a>
 
                     <a
-                        href="#"
+                        href="/"
                         className={classes.link}
-                        onClick={(event) => event.preventDefault()}
+                        onClick={() => {
+                            removeCookies("isLoggedIn");
+                            removeCookies("userId");
+                        }}
                     >
-                        <Logout className={classes.linkIcon} />
+                        <Logout className={classes.linkIcon}  />
                         <span>Đăng xuất</span>
                     </a>
 
@@ -169,26 +237,23 @@ export const AdminCenter: React.FC = () => {
             </Navbar>
 
             <div className="flex-grow px-6">
-                <div className="w-full justify-end p-6 border-b border-gray-300 flex relative">
+                <div className="w-full justify-end p-6 border-b border-gray-300 flex z-30 bg-white sticky top-0">
                     <User
-                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                        name="Ariana Wattson"
+                        src={data.avatar}
+                        name={data.name}
                         altText="A"
                         description="Admin"
                         pointer
-                        className="mr-4"
-
+                        onClick={() => {
+                            Router.push("/user");
+                        }}
+                        className="mr-4 object-cover"
                     />
-
-                   
-
                 </div>
-
-                
 
                 {tab === "#" && (
                     <div>
-                        <AdminDashBoard/>
+                        <AdminDashBoard />
                     </div>
                 )}
 

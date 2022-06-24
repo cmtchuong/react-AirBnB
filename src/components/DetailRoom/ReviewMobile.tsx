@@ -26,10 +26,11 @@ export const Payment: React.FC = () => {
         hasAirCon,
         hasHeating,
         hasWifi,
-        star,
-        rating,
         price,
     } = Router.query;
+
+    const star = 5;
+    const rating = 0
 
     return (
         <div>
@@ -41,9 +42,11 @@ export const Payment: React.FC = () => {
             </div>
 
             <button className="my-10 w-full py-3 cursor-pointer active:scale-95 active:bg-gray 100 transition transform ease-out block border rounded-xl font-medium text-black hover:bg-gray-300  duration-200 ">
-                {rating !== "0" && "Hiển thị tất cả " + rating + " đánh giá"}
+                {/* {rating !== "0" && "Hiển thị tất cả " + rating + " đánh giá"}
 
-                {rating === "0" && "Đánh giá tại đây"}
+                {rating === "0" && "Đánh giá tại đây"} */}
+
+                Đánh giá tại đây
             </button>
         </div>
     );

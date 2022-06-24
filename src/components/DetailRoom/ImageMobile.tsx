@@ -4,14 +4,22 @@ import { useOnClickOutside } from "usehooks-ts";
 import { VerifyIcon } from "@components/icons";
 import { CheckIcon, StarIcon } from "@heroicons/react/solid";
 import { Image } from "@nextui-org/react";
+import {useRouter } from "next/router";
+
+
 
 export const Payment: React.FC = () => {
+
+    
+const Router = useRouter();
+const { img } = Router.query;
+
     return (
         <div className="pt-6">
             <Image
                 showSkeleton
                 maxDelay={5000}
-                src="https://a0.muscache.com/im/pictures/prohost-api/Hosting-23863755/original/2ce81508-1182-4fdf-87b9-382867a48815.jpeg?im_w=720"
+                src={img || "https://media.discordapp.net/attachments/988365102870827008/988365133040484353/unknown.png?width=663&height=663"}
                 alt=""
                 objectFit="cover"
                 className="rounded-none"

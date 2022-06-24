@@ -33,6 +33,8 @@ type User = {
     password: string;
     email: String;
     phoneNumber: String;
+    _id: string;
+    type: string;
 };
 
 export const Login: React.FC = () => {
@@ -54,6 +56,7 @@ export const Login: React.FC = () => {
                 user,
             )
             .then((res) => {
+                setCookies("userId", res.data.user._id);
                 toast.info("Đăng nhập thành công", {
                     position: "top-right",
                     hideProgressBar: true,
@@ -61,10 +64,13 @@ export const Login: React.FC = () => {
                     pauseOnHover: false,
                     draggable: false,
                     autoClose: 3000,
+                    
                 });
 
                 setCookies("isLoggedIn", true);
+                
                 router.push("/");
+                // console.log(res.data.user._id)
                 setIsLoading(false);
             })
             .catch((err) => {

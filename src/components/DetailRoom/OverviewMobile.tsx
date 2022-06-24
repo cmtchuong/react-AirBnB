@@ -37,11 +37,11 @@ export const Payment: React.FC = () => {
                     </h1>
 
                     <h1 className="font-semibold text-black text-2xl">
-                        Chủ nhà DA
+                        Chủ nhà CBS
                     </h1>
                 </div>
                 <img
-                    src="https://media.discordapp.net/attachments/795114479133786135/972314215165616208/IMG_1227.jpg?width=497&height=662"
+                    src="https://media.discordapp.net/attachments/890493745982767111/988728915382128680/unknown.png"
                     className="w-16 h-16 rounded-full cursor-pointer"
                 ></img>
             </div>

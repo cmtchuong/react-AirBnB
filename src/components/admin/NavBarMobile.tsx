@@ -15,9 +15,13 @@ import {
     UserCircle,
     SwitchHorizontal,
     Logout,
+    UserSearch,
 } from "tabler-icons-react";
 import { AirbnbOnlyIcon } from "@components/icons";
 import { User } from "@nextui-org/react";
+import Users from "@components/admin/Users";
+import Locations from "@components/admin/Locations";
+import Rooms from "@components/admin/Rooms";
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -146,19 +150,19 @@ export const AdminCenter: React.FC = () => {
 
                 {tab === "#users" && (
                     <div>
-                        <h1>Quản lý người dùng</h1>
+                       <Users />
                     </div>
                 )}
 
                 {tab === "#location" && (
                     <div>
-                        <h1>Quản lý vị trí</h1>
+                        <Location />
                     </div>
                 )}
 
                 {tab === "#rooms" && (
                     <div>
-                        <h1>Quản lý phòng</h1>
+                        <Rooms />
                     </div>
                 )}
             </div>
