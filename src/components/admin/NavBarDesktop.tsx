@@ -22,7 +22,7 @@ import http from "@utils/http";
 import { API_ENDPOINTS } from "@utils/apiEndpoints";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 import { Loading } from "@nextui-org/react";
-import { removeCookies } from "cookies-next";
+import { removeCookies, getCookie } from "cookies-next";
 
 const useStyles = createStyles((theme, _params, getRef) => {
     const icon = getRef("icon");
@@ -127,9 +127,11 @@ export interface RootObject {
     birthday: string;
 }
 
+const user = getCookie("userId");
+
 const getUsers = async () => {
     const response = await http.get(
-        `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.USER}616915dbefe193001c0a5a6d`,
+        `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.USER}/${user}`,
     );
     return response.data;
 };
@@ -223,6 +225,7 @@ export const AdminCenter: React.FC = () => {
                         onClick={() => {
                             removeCookies("isLoggedIn");
                             removeCookies("userId");
+                            removeCookies("userType");
                         }}
                     >
                         <Logout className={classes.linkIcon}  />
@@ -247,6 +250,7 @@ export const AdminCenter: React.FC = () => {
                         onClick={() => {
                             Router.push("/user");
                         }}
+                        color={"warning"}
                         className="mr-4 object-cover"
                     />
                 </div>

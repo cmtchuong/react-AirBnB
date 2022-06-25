@@ -81,6 +81,7 @@ export const MenuMobileUser: React.FC = () => {
                                 onClick={() => {
                                     removeCookies("isLoggedIn");
                                     removeCookies("userId");
+                                    removeCookies("userType");
                                 }}
                             >
                                 Đăng xuất

@@ -57,6 +57,7 @@ export const Login: React.FC = () => {
             )
             .then((res) => {
                 setCookies("userId", res.data.user._id);
+                setCookies("userType", res.data.user.type);
                 toast.info("Đăng nhập thành công", {
                     position: "top-right",
                     hideProgressBar: true,

@@ -7,5 +7,6 @@ export const API_ENDPOINTS = {
     SEARCH: "/api/locations",
     USER: "/api/users/",
     ALL_USERS: "/api/users/pagination",
-    REVIEWS: "/api/reviews?",
+    REVIEWS: "/api/reviews/byRoom?",
+    BOOKING: "/api/rooms/booking/"
 }

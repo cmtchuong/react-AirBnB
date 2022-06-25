@@ -1,7 +1,16 @@
-# react-final
+# react-AirBnB
 
 
-This project was generated with [superplate](https://github.com/pankod/superplate).
+This project was made during training time in Cybersoft, as a final project. Due to the shortage of free time, I can't do as many functions as I want. There are many more things to improve and hopefully I can make it soon.
+
+Lists of functions:
+- Filter locations and search for rooms with that location.
+- Room detail
+- Confirm Payment
+- Register and Login
+- Admin that can manage users, locations and rooms
+
+Generated with [superplate](https://github.com/pankod/superplate).
 
 ## Getting Started
 

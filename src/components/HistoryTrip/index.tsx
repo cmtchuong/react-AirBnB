@@ -24,7 +24,7 @@ export const HistoryTrip: React.FC = () => {
 
             <div className="py-6">
             <span className="font-normal"> Bạn không tìm thấy đặt phòng/đặt chỗ của mình ở đây? </span>
-            <span className="text-black underline">Truy cập Trung tâm trợ giúp</span>
+            <span className="text-black underline cursor-pointer">Truy cập Trung tâm trợ giúp</span>
             </div>
         </div>
     );

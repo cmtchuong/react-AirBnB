@@ -20,6 +20,8 @@ export const MenuUser: React.FC = () => {
 
     useOnClickOutside(ref, handleClickOutside);
 
+    const userType = getCookie("userType");
+
     return (
         <div className="">
             {isOpen && (
@@ -28,9 +30,12 @@ export const MenuUser: React.FC = () => {
                     ref={ref}
                 >
                     <ul className="space-y-3 font-normal">
+                        
+                        {userType == "ADMIN" && (
                         <li className="font-bold hover:bg-gray-300 py-1 px-5">
                             <a href="/admin">Admin</a>
                         </li>
+                        )}
 
                         <li className="font-bold text-black hover:bg-gray-300 py-1 px-5">
                             <a href="">Tin nhắn</a>
@@ -82,6 +87,7 @@ export const MenuUser: React.FC = () => {
                                 onClick={() => {
                                     removeCookies("isLoggedIn");
                                     removeCookies("userId");
+                                    removeCookies("userType")
                                 }}
                             >
                                 Đăng xuất
