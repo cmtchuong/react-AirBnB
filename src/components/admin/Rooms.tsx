@@ -12,6 +12,14 @@ import type { FilterConfirmProps } from "antd/lib/table/interface";
 import Highlighter from "react-highlight-words";
 import { Location } from "tabler-icons-react";
 
+import { Loading, Modal, useModal } from "@nextui-org/react";
+import { ExclamationCircleIcon } from "@heroicons/react/outline";
+
+import { useForm } from "react-hook-form";
+
+type Room = {
+    name: string;
+}
 
 
 interface DataType {

@@ -3,7 +3,7 @@
     "item": [
         {
             "img": "https://a0.muscache.com/im/pictures/03bb6d0a-5ccb-47e1-83fc-b7ad87e7f8c3.jpg?im_w=320",
-            "location": "Thành phố Vinh",
+            "location": "Phú Quốc",
             "distance": "Cách 262km",
             "style": "firstCard rounded-b-xl pt-6 px-4 pb-8 h-218 roundedCard"
         },
@@ -15,13 +15,13 @@
         },
         {
             "img": "https://a0.muscache.com/im/pictures/0538dab4-a0fc-4035-b6b2-40fa3532ee7b.jpg?im_w=320",
-            "location": "Thành phố Hạ Long",
+            "location": "Hạ Long",
             "distance": "Cách 125km",
             "style": "thirdCard rounded-b-xl pt-6 px-4 pb-8 h-218 roundedCard"
         },
         {
             "img": "https://a0.muscache.com/im/pictures/3a7b8005-28b8-48b8-8efa-0a6a00f7d5d8.jpg?im_w=320",
-            "location": "Mỹ Đình",
+            "location": "Bến Tre",
             "distance": "Cách 8km",
             "style": "fourthCard rounded-b-xl pt-6 px-4 pb-8 h-218 roundedCard"
         }

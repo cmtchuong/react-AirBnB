@@ -20,7 +20,7 @@ import { CurrencyModal } from "@components/modal/currency";
 export const Footer: React.FC = () => {
     const { setVisible, bindings } = useModal();
 
-    const [language, setLanguage] = useState(false);
+    const [language, setLanguage] = useState(true);
     const [currency, setCurrency] = useState(false);
     const [isSelect, setIsSelect] = useState("Language");
 

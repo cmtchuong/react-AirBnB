@@ -3,7 +3,11 @@ import Image from "next/image";
 
 
 import comment from "@public/comment.json";
+import { useRouter } from "next/router";
+import { API_ENDPOINTS } from "@utils/apiEndpoints";
 
+import { Loading } from "@nextui-org/react";
+import http from "@utils/http";
 
 
 // interface infoProps {
@@ -13,6 +17,20 @@ import comment from "@public/comment.json";
 //     comment: string;
 
 // }
+
+const getInfoRooms = async () => {
+    // await (
+    //     await http.get(
+    //         `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.SEARCH}`,
+    //     )
+    // ).data.json();
+    const response = await http.get(
+        `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.GET_ROOMS}`,
+    );
+
+    return response.data;
+};
+
 
 export const CommentCards: React.FC = () =>
     

@@ -1,27 +1,16 @@
 import React from "react";
 import Image from "next/image";
 
-import { useEffect, useState } from "react";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 
-import search from "@public/search.json";
 
 import { HeartIcon } from "@heroicons/react/outline";
 import {
-    ChevronLeftIcon,
-    ChevronRightIcon,
     StarIcon,
 } from "@heroicons/react/solid";
-import router, { useRouter } from "next/router";
-import { addDays } from "date-fns";
-import { openInNewTab } from "@utils/openInNewTab";
-import { TableRow } from "@material-ui/core";
-import { setTarget } from "framer-motion/types/render/utils/setters";
+import { useRouter } from "next/router";
 import { API_ENDPOINTS } from "@utils/apiEndpoints";
-import useSWR, { Key, Fetcher } from "swr";
-import axios from "axios";
 
-import { useGetPosts } from "src/hooks/useRequest";
 import { Loading } from "@nextui-org/react";
 import http from "@utils/http";
 

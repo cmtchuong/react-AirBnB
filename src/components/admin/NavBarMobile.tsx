@@ -22,6 +22,12 @@ import { User } from "@nextui-org/react";
 import Users from "@components/admin/Users";
 import Locations from "@components/admin/Locations";
 import Rooms from "@components/admin/Rooms";
+import http from "@utils/http";
+import { API_ENDPOINTS } from "@utils/apiEndpoints";
+import { dehydrate, QueryClient, useQuery } from "react-query";
+import { Loading } from "@nextui-org/react";
+import { removeCookies, getCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -62,6 +68,43 @@ interface NavbarLinkProps {
     onClick?(): void;
 }
 
+export interface RootObject {
+    tickets: any[];
+    deleteAt: boolean;
+    _id: string;
+    name: string;
+    email: string;
+
+    phone: string;
+    gender: boolean;
+    address: string;
+    type: boolean;
+    __v: number;
+    avatar: string;
+    birthday: string;
+}
+
+const user = getCookie("userId");
+
+const getUsers = async () => {
+    const response = await http.get(
+        `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.USER}/${user}`,
+    );
+    return response.data;
+};
+
+export async function getStaticProps() {
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery<RootObject>("info", getUsers);
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    };
+}
+
 function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
     const { classes, cx } = useStyles();
     return (
@@ -92,6 +135,26 @@ export const AdminCenter: React.FC = () => {
     const [active, setActive] = useState(2);
     const { classes, cx } = useStyles();
     const [tab, setTab] = useState("#");
+    const Router = useRouter();
+
+    const { data, isLoading, isFetching } = useQuery<RootObject>(
+        "info",
+        getUsers,
+    );
+    console.log(data);
+
+    if (isLoading) {
+        return (
+            <div className="p-4 mx-[25%]">
+                {" "}
+                <Loading />{" "}
+            </div>
+        );
+    }
+
+    if (!data) {
+        return <p className="">Dữ liệu không tìm thấy :)</p>;
+    }
 
     const links = mockdata.map((link, index) => (
         <NavbarLink
@@ -124,8 +187,18 @@ export const AdminCenter: React.FC = () => {
                         <NavbarLink
                             icon={SwitchHorizontal}
                             label="Thay đổi tài khoản"
+                        
                         />
-                        <NavbarLink icon={Logout} label="Đăng xuất" />
+                        <a
+                            href="/"
+                            onClick={() => {
+                                removeCookies("isLoggedIn");
+                                removeCookies("userId");
+                                removeCookies("userType");
+                            }}
+                        >
+                            <NavbarLink icon={Logout} label="Đăng xuất" />
+                        </a>
                     </Group>
                 </Navbar.Section>
             </Navbar>
@@ -133,12 +206,16 @@ export const AdminCenter: React.FC = () => {
             <div className="flex-grow">
                 <div className="w-full justify-end py-6 px-3 border-b border-gray-300 flex relative">
                     <User
-                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                        name="Ariana Wattson"
+                        src={data.avatar}
+                        name={data.name}
                         altText="A"
                         description="Admin"
                         pointer
-                        className="mr-4"
+                        onClick={() => {
+                            Router.push("/user");
+                        }}
+                        color={"warning"}
+                        className="mr-4 object-cover"
                     />
                 </div>
 
@@ -150,13 +227,13 @@ export const AdminCenter: React.FC = () => {
 
                 {tab === "#users" && (
                     <div>
-                       <Users />
+                        <Users />
                     </div>
                 )}
 
                 {tab === "#location" && (
                     <div>
-                        <Location />
+                        <Locations />
                     </div>
                 )}
 

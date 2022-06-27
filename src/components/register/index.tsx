@@ -1,26 +1,16 @@
-import React, { useRef, RefObject } from "react";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useMouseWheel } from "react-use";
+import React, { useRef } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useOnClickOutside } from "usehooks-ts";
-import { Menu } from "@components/menu/Menu";
 import { API_ENDPOINTS } from "@utils/apiEndpoints";
 import http from "@utils/http";
-import axios from "axios";
 import { toast } from "react-toastify";
 import {
     AppleIcon,
     ColorFacebookIcon,
     GoogleIcon,
-    InstagramIcon,
-    MailIcon,
-    UserIcon,
 } from "@components/icons";
 // import classNames from "classnames";
 
-import { watch } from "fs";
 import { Loading } from "@nextui-org/react";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 
@@ -138,35 +128,7 @@ export const Register: React.FC = () => {
 
                         <form className="form py-5" onSubmit={onSubmit}>
                             <div className="flex flex-col justify-between ">
-                                {/* <div className="rounded-lg">
-                                    <input
-                                        {...register("username", {
-                                            required:
-                                                "Tài khoản không được để trống",
-                                            minLength: {
-                                                value: 6,
-                                                message:
-                                                    "Tên tài khoản phải có ít nhất 6 ký tự",
-                                            },
-
-                                            pattern: {
-                                                value: /^[a-zA-Z0-9]+$/,
-                                                message:
-                                                    "Tên tài khoản không được chứa ký tự đặc biệt",
-                                            },
-                                        })}
-                                        id="username"
-                                        name="username"
-                                        type="text"
-                                        placeholder="Tài khoản"
-                                        className=" text-base w-full  border border-gray-500 border-b-0 md:text-left text-center p-4 active:outline-black "
-                                    ></input>
-                                    {errors.username && (
-                                        <div className="text-red-500 font-medium text-xs my-2">
-                                            {errors.username.message}
-                                        </div>
-                                    )}
-                                </div> */}
+                                
                                 <label className="pb-4">
                                     <div className="">
                                         <div>
@@ -362,10 +324,10 @@ export const Register: React.FC = () => {
                                                 >
                                                     
                                                     <option value="true">
-                                                        true
+                                                        Nam
                                                     </option>
                                                     <option value="false">
-                                                        false
+                                                        Nữ
                                                     </option>
                                                 </select>
                                             </div>
