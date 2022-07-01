@@ -10,7 +10,7 @@ import { Modal, useModal } from "@nextui-org/react";
 export const Payment: React.FC = () => {
     const Router = useRouter();
 
-    const { startAt, endAt } = Router.query;
+    const { startDate, endDate } = Router.query;
 
     const { setVisible, bindings } = useModal();
 
@@ -24,12 +24,12 @@ export const Payment: React.FC = () => {
                 <span className="text-black font-semibold">
                     {" "}
                     {"Hủy miễn phí trước 15:00 trong vòng 30 ngày kể từ ngày " +
-                        startAt +
+                        startDate +
                         ". "}{" "}
                 </span>
                 <span className="font-normal">
                     {"Sau đó, hủy trước 17:00 trong vòng 7 ngày kể từ ngày " +
-                        startAt +
+                        startDate +
                         " để được hoàn lại 50%, trừ phí dịch vụ. "}
                 </span>
                 <span className="text-black font-semibold underline cursor-pointer">

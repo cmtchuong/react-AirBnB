@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 export const Payment: React.FC = () => {
     const Router = useRouter();
 
-    const { startAt, endAt, guests, adults, children } = Router.query;
+    const { startDate, endDate, guests, adults, children } = Router.query;
 
     return (
         <div className="pb-6 border-b border-gray-300 pt-6">
@@ -19,7 +19,7 @@ export const Payment: React.FC = () => {
             <div className="flex justify-between py-6">
                 <div className="flex flex-col space-y-1">
                     <h2 className="text-black font-semibold"> Ngày </h2>
-                    <p className="text-black">{startAt + " - " + endAt} </p>
+                    <p className="text-black">{startDate + " - " + endDate} </p>
                 </div>
 
                 

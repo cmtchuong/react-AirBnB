@@ -30,9 +30,16 @@ import { Router, useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "@utils/apiEndpoints";
+import http from "@utils/http";
+import { format } from "date-fns";
+import { getCookie } from "cookies-next";
+
 // import { API_ENDPOINTS } from "@utils/apiEndpoints";
 
 type PaymentOptionProps = {
+    roomId: string;
+    checkIn: string;
+    checkOut: string;
     cardNumber: number;
     expiredDate: string;
     cvv: number;
@@ -40,6 +47,7 @@ type PaymentOptionProps = {
 };
 
 export const Payment: React.FC = () => {
+    const value = getCookie("isLoggedIn");
     const {
         register,
         handleSubmit,
@@ -48,16 +56,17 @@ export const Payment: React.FC = () => {
     } = useForm<PaymentOptionProps>();
 
     const Router = useRouter();
+    const { roomID, startAt, endAt, startDate, endDate } = Router.query;
 
     const onSubmit = handleSubmit(async (user) => {
         setIsLoading(true);
-        const response = await axios
+        const response = await http
             .post(
-                `https://cc62e73f33af4d5eb355d601efc35466-3afda50d-vm-80.vlab2.uit.edu.vn/api/v1${API_ENDPOINTS.LOGIN}`,
+                `https://airbnb.cybersoft.edu.vn${API_ENDPOINTS.BOOKING}${roomID}`,
                 user,
             )
             .then((res) => {
-                toast.info("Thành công!", {
+                toast.info("Thanh toán thành công!", {
                     position: "top-right",
                     hideProgressBar: true,
                     closeOnClick: true,
@@ -71,7 +80,20 @@ export const Payment: React.FC = () => {
             })
             .catch((err) => {
                 if (err.response.status === 400) {
-                    toast.error("Tài khoản hoặc mật khẩu không đúng", {
+                    toast.error("Có lỗi xảy ra!", {
+                        position: "top-right",
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: false,
+                        autoClose: 3000,
+                    });
+
+                    setIsLoading(false);
+                }
+
+                if (err.response.status === 401) {
+                    toast.error("Đã có lỗi xảy ra!", {
                         position: "top-right",
                         hideProgressBar: true,
                         closeOnClick: true,
@@ -84,7 +106,7 @@ export const Payment: React.FC = () => {
                 }
 
                 if (err.response.status === 403) {
-                    toast.error("Forbidden", {
+                    toast.error("Đã có lỗi xảy ra!", {
                         position: "top-right",
                         hideProgressBar: true,
                         closeOnClick: true,
@@ -120,8 +142,8 @@ export const Payment: React.FC = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const {price} = Router.query
-    
+    const { price } = Router.query;
+
     let priceToPay = parseInt(price);
 
     return (
@@ -294,8 +316,69 @@ export const Payment: React.FC = () => {
                                 </div>
                             )}
                         </div>
+                    </div>
 
-                        <div className="mt-4">
+                    <div className="mt-4">
+                        <div className="mb-4">
+                            <label className="">
+                                <div className=" border rounded-t-xl border-gray-500 p-3 ">
+                                    <div>
+                                        <p className="text-black text-xs font-semibold">
+                                            Mã phòng
+                                        </p>
+                                    </div>
+                                    <input
+                                        {...register("roomId")}
+                                        id="roomId"
+                                        name="roomId"
+                                        readOnly
+                                        value={roomID}
+                                        className=" text-base w-full md:text-left text-center text-black "
+                                    ></input>
+                                </div>
+                            </label>
+
+                            <div className="flex">
+                                <label className="flex-grow">
+                                    <div className="border border-gray-500 p-3 rounded-bl-xl  border-r-0">
+                                        <div>
+                                            <p className="text-black text-xs font-semibold">
+                                                Ngày bắt đầu
+                                            </p>
+                                        </div>
+
+                                        <input
+                                            {...register("checkIn")}
+                                            readOnly
+                                            id="checkIn"
+                                            name="checkIn"
+                                            value={startAt}
+                                            className=" text-base w-full md:text-left text-center text-black "
+                                        ></input>
+                                    </div>
+                                </label>
+
+                                <label className="flex-grow">
+                                    <div className="border border-gray-500 p-3 rounded-br-xl ">
+                                        <div>
+                                            <p className="text-black text-xs font-semibold">
+                                                Ngày kết thúc
+                                            </p>
+                                        </div>
+                                        <input
+                                            {...register("checkOut")}
+                                            required
+                                            id="checkOut"
+                                            name="checkOut"
+                                            value={endAt}
+                                            readOnly
+                                            className=" text-base w-full md:text-left text-center text-black "
+                                        ></input>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        {/* 
                             <label className="">
                                 <div className=" border rounded-t-xl border-gray-500 p-3 ">
                                     <div>
@@ -341,9 +424,9 @@ export const Payment: React.FC = () => {
                                         {errors.cardNumber.message}
                                     </div>
                                 )}
-                            </label>
+                            </label> */}
 
-                            <div className="flex">
+                        {/* <div className="flex">
                                 <label className="flex-grow">
                                     <div className="border border-gray-500 p-3 rounded-bl-xl  border-r-0">
                                         <div>
@@ -448,7 +531,7 @@ export const Payment: React.FC = () => {
                                     </div>
                                 )}
                             </label>
-                        </div>
+                        </div> */}
 
                         <label>
                             <div
@@ -560,24 +643,42 @@ export const Payment: React.FC = () => {
 
                     <TermsAndConditions />
 
-                    <button
-                        type="submit"
-                        className="bg-gradient-to-r from-[#e61e4d] to-[#d70466] w-full rounded-xl py-3 mt-5 mb-20 text-white active:bg-pink-500 hover:shadow-xl active:scale-90 transition duration-150 font-medium md:w-2/3 text-xl cursor-pointer"
-                        onClick={onSubmit}
-                    >
-                        {isLoading ? (
-                            <Loading type="default" color="white" />
-                        ) : (
-                            "Xác nhận và thanh toán - Airbnb"
-                        )}
-                    </button>
+                    {value === undefined ? (
+                        <div className="mb-20">
+                            <button
+                                type="submit"
+                                className="bg-gray-500 rounded-xl py-3 mt-5 font-medium md:w-2/3 text-xl cursor-not-allowed"
+                            >
+                                Xác nhận và thanh toán - Airbnb
+                            </button>
+
+                            <p className="text-red-800 font-medium text-xs my-4 p-2 border border-red-500 bg-red-300 w-max rounded-lg flex">
+                                <ExclamationCircleIcon className="w-4 h-4 mr-1 self-center" />
+                                Hãy đăng nhập để tiến hành thanh toán
+                            </p>
+                        </div>
+                    ) : (
+                        <button
+                            type="submit"
+                            className="bg-gradient-to-r from-[#e61e4d] to-[#d70466] w-full rounded-xl py-3 mt-5 mb-20 text-white active:bg-pink-500 hover:shadow-xl active:scale-90 transition duration-150 font-medium md:w-2/3 text-xl cursor-pointer"
+                            onClick={() => {
+                                onSubmit;
+                                Router.push("/payment/success");
+                            }}
+                        >
+                            {isLoading ? (
+                                <Loading type="default" color="white" />
+                            ) : (
+                                "Xác nhận và thanh toán - Airbnb"
+                            )}
+                        </button>
+                    )}
                 </div>
 
                 <div className="w-2/5 xl:p-6 p-3 mb-12">
                     <div className="border border-gray-300 rounded-xl sticky top-[20%]">
                         <ListingCard />
 
-                        
                         <PriceDetail />
                     </div>
                 </div>
