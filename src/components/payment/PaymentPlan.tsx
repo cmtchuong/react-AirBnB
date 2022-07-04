@@ -14,7 +14,8 @@ export const Payment: React.FC<props> = ({
 }) => {
     const Router = useRouter();
 
-    const { price, endAt } = Router.query;
+    const { endAt } = Router.query;
+    const price = Router.query as unknown as number;
 
     return (
         <div className="py-6 border-b border-gray-300">

@@ -46,7 +46,7 @@ const Search: React.FC = () => {
                 ></link>
             </Head>
 
-            <StickyHeader title="Thay đổi tìm kiếm" place={location} />
+            <StickyHeader title="Thay đổi tìm kiếm" place={location.toString()} />
 
             <main className="font-normal ">
                 <section className="flex-grow pt-6 px-6">
@@ -120,7 +120,7 @@ const Search: React.FC = () => {
                            
 
                             <InfoCards     
-                            page={page}                       
+                                                  
                             
                             
                             // img={items.img}

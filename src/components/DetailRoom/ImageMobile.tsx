@@ -4,7 +4,7 @@ import { useOnClickOutside } from "usehooks-ts";
 import { VerifyIcon } from "@components/icons";
 import { CheckIcon, StarIcon } from "@heroicons/react/solid";
 import { Image } from "@nextui-org/react";
-import {useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 
 
@@ -12,7 +12,7 @@ export const Payment: React.FC = () => {
 
     
 const Router = useRouter();
-const { img } = Router.query;
+const img = Router.query as unknown as string
 
     return (
         <div className="pt-6">

@@ -144,7 +144,7 @@ export const Payment: React.FC = () => {
 
     const { price } = Router.query;
 
-    let priceToPay = parseInt(price);
+   
 
     return (
         <div>

@@ -9,10 +9,10 @@ export const Payment: React.FC = () => {
    
    const Router = useRouter();
    
-   const { price, dayNum } = Router.query;
+   const {dayNum, price} = Router.query as unknown as {dayNum: number, price: number};
 
-   const cleaningFee = parseInt(price) * 0.25;
-   const totalPrice = parseInt(price) * parseInt(dayNum) + cleaningFee;
+   const cleaningFee = price * 0.25;
+   const totalPrice = price * dayNum + cleaningFee;
 
     return (
         <div className="p-6">

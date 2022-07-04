@@ -9,6 +9,7 @@ export const Payment: React.FC = () => {
     const Router = useRouter();
 
     const { img, location, title, star, rating } = Router.query;
+  
 
     return (
         <div className="" id="listing_card">
@@ -16,7 +17,7 @@ export const Payment: React.FC = () => {
                 <div className="flex border-b border-gray-300 p-6">
                     <div className="w-1/3">
                         <img
-                            src={img}
+                            src={img.toString()}
                             className="w-[124px] h-[106px] rounded-xl "
                         ></img>
                     </div>

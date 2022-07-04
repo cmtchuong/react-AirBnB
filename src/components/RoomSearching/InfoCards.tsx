@@ -75,7 +75,8 @@ export const InfoCards: React.FC = () => {
 
     const Router = useRouter();
 
-    const { location, startAt, endAt, guests } = Router.query;
+    const { startAt, endAt, guests } = Router.query;
+    const {location} = Router.query;
 
     // function onChangePage(pageNum: number) {
     //     page = pageNum;
@@ -139,7 +140,7 @@ export const InfoCards: React.FC = () => {
             {data?.map((i) => {
                 return (
                     <div key={i._id}>
-                    {((cleanAccents(location?.toLowerCase())?.includes(cleanAccents(i?.locationId?.name?.toLowerCase()))) || (cleanAccents(location?.toLowerCase())?.includes(cleanAccents(i?.locationId?.province?.toLowerCase())))) && (
+                    {((cleanAccents(location.toString().toLowerCase())?.includes(cleanAccents(i?.locationId?.name?.toString().toLowerCase()))) || (cleanAccents(location?.toString().toLowerCase())?.includes(cleanAccents(i?.locationId?.province?.toString().toLowerCase())))) && (
                     <div
                         className="flex py-4 px-2 border-b border-gray-500 cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first: border-t"
                         onClick={() => {

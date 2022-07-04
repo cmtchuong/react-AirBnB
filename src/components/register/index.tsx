@@ -156,7 +156,7 @@ export const Register: React.FC = () => {
                                         {errors.email && (
                                             <div className="text-red-800 font-medium text-xs my-4 p-2 border border-red-500 bg-red-300 w-max rounded-lg flex">
                                                 <ExclamationCircleIcon className="w-4 h-4 mr-1 self-center" />
-                                                {errors.email.message}
+                                                {(errors.email as any)?.message}
                                             </div>
                                         )}
                                     </div>

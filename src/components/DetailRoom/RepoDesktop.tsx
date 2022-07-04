@@ -82,6 +82,8 @@ export const DetailRoom: React.FC = (
         price,
     } = Router.query;
 
+   
+
     const star = 5;
     const rating = 0;
 
@@ -156,7 +158,7 @@ export const DetailRoom: React.FC = (
                             <div className="room_1st_image ">
                                 <img
                                     className="room__img rounded-l-xl h-full hover:brightness-75 transition ease-out duration-200"
-                                    src={img}
+                                    src={img.toString()}
                                 ></img>
                             </div>
                             <div>
