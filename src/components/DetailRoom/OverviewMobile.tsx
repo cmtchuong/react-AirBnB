@@ -33,7 +33,7 @@ export const Payment: React.FC = () => {
             <div className="flex justify-between">
                 <div className="flex flex-col ">
                     <h1 className="font-semibold text-black text-2xl">
-                        {"Toàn bộ " + homeType + " tại " + displayName}
+                        {"Toàn bộ " + "khách sạn/nhà ở" + " tại " + displayName}
                     </h1>
 
                     <h1 className="font-semibold text-black text-2xl">

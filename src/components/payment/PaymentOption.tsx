@@ -1,12 +1,9 @@
-import React, { useRef, useState } from "react";
-import { Login } from "@components/login";
-import { useOnClickOutside } from "usehooks-ts";
-import { GoogleIcon, PaypalIcon, VerifyIcon } from "@components/icons";
+import React, { useState } from "react";
+import { GoogleIcon, PaypalIcon } from "@components/icons";
 import {
     CheckIcon,
     ChevronDownIcon,
     ChevronUpIcon,
-    StarIcon,
 } from "@heroicons/react/solid";
 
 import { useForm } from "react-hook-form";

@@ -1,37 +1,28 @@
-import React, { useRef, useState } from "react";
-import { Login } from "@components/login";
+import React, { useState } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/solid";
-import LoginHeader from "@components/header/LoginHeader";
 import { Footer } from "@components/footer";
 import YourTrip from "@components/payment/YourTrip";
-import PaymentPlan from "@components/payment/PaymentPlan";
-import PaymentOption from "@components/payment/PaymentOption";
 import CancellationPolicy from "@components/payment/CancellationPolicy";
-import ConfirmButton from "@components/payment/ConfirmButton";
 import TermsAndConditions from "@components/payment/TermsAndConditions";
 import ListingCard from "@components/payment/ListingCard";
 import PriceDetail from "@components/payment/PriceDetail";
 import { Loading } from "@nextui-org/react";
-import { useOnClickOutside } from "usehooks-ts";
-import { GoogleIcon, PaypalIcon, VerifyIcon } from "@components/icons";
+import { GoogleIcon, PaypalIcon } from "@components/icons";
 import {
     CheckIcon,
     ChevronDownIcon,
     ChevronUpIcon,
-    StarIcon,
 } from "@heroicons/react/solid";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
     CreditCardIcon,
     ExclamationCircleIcon,
 } from "@heroicons/react/outline";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "@utils/apiEndpoints";
-import http from "@utils/http";
-import { format } from "date-fns";
 import { getCookie } from "cookies-next";
 
 type PaymentOptionProps = {

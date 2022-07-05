@@ -1,8 +1,4 @@
-import React, { useRef, useState } from "react";
-import { Login } from "@components/login";
-import { useOnClickOutside } from "usehooks-ts";
-import { VerifyIcon } from "@components/icons";
-import { CheckIcon, StarIcon } from "@heroicons/react/solid";
+import React, {  } from "react";
 import { Modal, useModal } from "@nextui-org/react";
 import { EmojiHappyIcon, EmojiSadIcon } from "@heroicons/react/outline";
 

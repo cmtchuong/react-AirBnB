@@ -36,20 +36,20 @@ export const TitleDefaultMobile: React.FC = () => {
                     <ChevronLeftIcon className="w-8 h-8 mr-2 text-black p-1 rounded-full self-center hover:bg-gray-300 cursor-pointer" />
                 </a>
                 <h1 className="text-xl font-semibold text-black">
-                    {" "}
-                    {place} - Airbnb{" "}
+                    {"Toàn bộ khách sạn/nhà ở " +
+                        " tại " +
+                        displayName +
+                        "- Airbnb"}
                 </h1>
             </div>
 
             <div className="flex space-x-4 flex-grow justify-end">
                 <a className="flex items-center cursor-pointer  text-black rounded-xl hover:bg-gray-300">
                     <ShareIcon className="h-5 w-5 mr-2" />
-                   
                 </a>
 
                 <a className="flex items-center cursor-pointer text-black rounded-xl hover:bg-gray-300">
                     <HeartIcon className="h-5 w-5 mr-2" />
-                  
                 </a>
             </div>
         </div>
