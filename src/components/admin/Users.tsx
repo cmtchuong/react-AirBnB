@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import React, { useRef, useState } from "react";
 

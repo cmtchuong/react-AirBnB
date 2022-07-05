@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useRef, RefObject } from "react";
 import Image from "next/image";
 import router, { useRouter } from "next/router";

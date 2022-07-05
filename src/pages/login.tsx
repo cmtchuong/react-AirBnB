@@ -1,3 +1,4 @@
+/* eslint-disable */
 import react from "react";
 import React, { useRef, RefObject } from "react";
 import Image from "next/image";
