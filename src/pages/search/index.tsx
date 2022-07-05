@@ -21,7 +21,8 @@ import Pagination from "@components/RoomSearching/Pagination";
 
 const Search: React.FC = () => {
     const router = useRouter();
-    const { location, startAt, endAt, guests } = router.query;
+    const { startAt, endAt, guests } = router.query;
+    const {location} = router.query as unknown as {location: string};
 
     const [page, setPage] = useState(1);
 
@@ -46,7 +47,7 @@ const Search: React.FC = () => {
                 ></link>
             </Head>
 
-            <StickyHeader title="Thay đổi tìm kiếm" place={location.toString()} />
+            <StickyHeader title="Thay đổi tìm kiếm" place={location} />
 
             <main className="font-normal ">
                 <section className="flex-grow pt-6 px-6">
