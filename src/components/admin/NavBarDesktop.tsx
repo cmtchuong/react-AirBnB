@@ -158,7 +158,7 @@ export const AdminCenter: React.FC = () => {
         "info",
         getUsers,
     );
-    console.log(data);
+    
 
     if (isLoading) {
         return (

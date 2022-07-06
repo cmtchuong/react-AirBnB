@@ -44,12 +44,12 @@ export const StickyHeader: React.FC<Props> = ({
 
     const handleClickOutside = () => {
         setStateSearch(false);
-        console.log("clicked outside");
+        
     };
 
     const handleClickInside = () => {
         // Your custom logic here
-        console.log("clicked inside");
+      
     };
 
     useOnClickOutside(ref, handleClickOutside);

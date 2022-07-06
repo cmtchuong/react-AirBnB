@@ -16,7 +16,7 @@ export const Menu: React.FC = () => {
 
     const handleClickInside = () => {
         setIsOpen(true);
-        console.log("clicked inside");
+        
     };
 
   

@@ -15,7 +15,7 @@ export const MenuUser: React.FC = () => {
 
     const handleClickInside = () => {
         
-        console.log("clicked inside");
+      
     };
 
     useOnClickOutside(ref, handleClickOutside);

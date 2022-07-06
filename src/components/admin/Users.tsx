@@ -94,7 +94,7 @@ export const Users: React.FC = () => {
         "infoRoom",
         getUsers,
     );
-    console.log(data);
+   
 
     if (!data) {
         return <p className="p-6">Dữ liệu không tìm thấy :)</p>;

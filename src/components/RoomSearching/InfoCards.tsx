@@ -65,7 +65,7 @@ export const InfoCards: React.FC = () => {
         "infoRoom",
         getInfoRooms,
     );
-    console.log(data);
+   
 
     if (!data) {
         return <p className="p-6">Dữ liệu không tìm thấy :)</p>;

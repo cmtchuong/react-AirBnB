@@ -50,12 +50,12 @@ export const City: React.FC<Props> = (
 
     const ref = useRef(null);
     const handleClickOutside = () => {
-        console.log("clicked outside");
+       
     };
 
     const handleClickInside = () => {
         // Your custom logic here
-        console.log("clicked inside");
+        
     };
 
     useOnClickOutside(ref, handleClickOutside);

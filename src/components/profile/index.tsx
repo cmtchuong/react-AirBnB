@@ -26,7 +26,7 @@ export interface RootObject {
 }
 
 const userId = getCookie("userId");
-console.log(userId);
+
 
 const getUsers = async () => {
     const response = await http.get(
@@ -54,7 +54,7 @@ export const Profile: React.FC = () => {
         "info",
         getUsers,
     );
-    console.log(data);
+    
 
     if (isLoading) {
         return (

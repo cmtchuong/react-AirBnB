@@ -89,12 +89,12 @@ export const Search: React.FC<Props> = ({
         setOpenLocation(false);
         setOpenGuests(false);
         setOpenDay(false);
-        console.log("clicked outside");
+        
     };
 
     const handleClickInside = () => {
         // Your custom logic here
-        console.log("clicked inside");
+        
     };
 
     useOnClickOutside(ref, handleClickOutside);
@@ -113,7 +113,7 @@ export const Search: React.FC<Props> = ({
         "info",
         getLocations,
     );
-    console.log(data);
+    
 
     if (isLoading) {
         return (
@@ -225,7 +225,7 @@ export const Search: React.FC<Props> = ({
                         className="hover:bg-gray-500 cursor-pointer rounded-40 px-5 py-1 "
                         onClick={() => {
                             setOpenDay(!openDay);
-                            console.log(openDay);
+                           
                         }}
                     >
                         <p className="m-0">Nhận phòng</p>
@@ -241,7 +241,7 @@ export const Search: React.FC<Props> = ({
                         className="hover:bg-gray-500 cursor-pointer rounded-40 px-5 py-1 "
                         onClick={() => {
                             setOpenDay(!openDay);
-                            console.log(openDay);
+                            
                         }}
                     >
                         <p className="m-0">Trả phòng</p>
