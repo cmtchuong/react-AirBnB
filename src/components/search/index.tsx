@@ -89,12 +89,12 @@ export const Search: React.FC<Props> = ({
         setOpenLocation(false);
         setOpenGuests(false);
         setOpenDay(false);
-        
     };
+
+    console.log(openLocation, openGuests, openDay);
 
     const handleClickInside = () => {
         // Your custom logic here
-        
     };
 
     useOnClickOutside(ref, handleClickOutside);
@@ -113,7 +113,6 @@ export const Search: React.FC<Props> = ({
         "info",
         getLocations,
     );
-    
 
     if (isLoading) {
         return (
@@ -128,8 +127,6 @@ export const Search: React.FC<Props> = ({
         return <p className="">Dữ liệu không tìm thấy :)</p>;
     }
 
-   
-
     const guests = adults + children;
     // const [startDate, setStartDate] = useState(new Date());
     // const [endDate, setEndDate] = useState(new Date());
@@ -140,7 +137,7 @@ export const Search: React.FC<Props> = ({
     // };
 
     const cleanAccents = (str?: string): string => {
-        if (!str) return 
+        if (!str) return;
         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
         str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
         str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
@@ -156,19 +153,18 @@ export const Search: React.FC<Props> = ({
         str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
         str = str.replace(/Đ/g, "D");
         // Combining Diacritical Marks
-        str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // huyền, sắc, hỏi, ngã, nặng 
+        str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // huyền, sắc, hỏi, ngã, nặng
         str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // mũ â (ê), mũ ă, mũ ơ (ư)
-        
-        
-    
-        return str;
-    }
 
-   
+        return str;
+    };
 
     return (
         <div className={className}>
-            <div className="flex border border-gray-500 mx-[20%] rounded-40 justify-between items-center bg-white relative">
+            <div
+                className="flex border border-gray-500 mx-[20%] rounded-40 justify-between items-center bg-white relative"
+                ref={ref}
+            >
                 <div className=" rounded-full flex-1 py-1 ">
                     <p className="px-5 lg:text-left text-center">
                         <p>Địa điểm</p>
@@ -179,37 +175,42 @@ export const Search: React.FC<Props> = ({
                             value={searchInput || ""}
                             placeholder={place}
                             className=" text-base w-full outline-0 lg:text-left text-center"
-                            onClick={() => setOpenLocation(!openLocation)}
+                            onClick={() => setOpenLocation(true)}
                         />
                     </p>
 
                     {openLocation && (
-                        <div
-                            className="absolute bg-white lg:w-1/2 w-full h-[200px] top-[70px] z-10 border border-gray-300 shadow-listProduct rounded-xl overflow-y-auto"
-                            ref={ref}
-                        >
+                        <div className="absolute bg-white lg:w-1/2 w-full h-[200px] top-[70px] z-10 border border-gray-300 shadow-listProduct rounded-xl overflow-y-auto">
                             <div className="mx-[6%] my-2 ">
-                                
                                 {data?.map((i) => {
-                                    
                                     return (
                                         <div className="flex flex-col ">
-                                            {((((cleanAccents(i?.name))?.includes(cleanAccents(searchInput))) || ((cleanAccents(i?.province))?.includes(cleanAccents(searchInput)))) || (searchInput === "")) && (
-                                        
-                                        <a
-                                            className="hover:bg-gray-500 space-y-3 "
-                                            key={i._id}
-                                            onClick={() => {
-                                                setSearchInput(i?.name + ", " + i?.province);
-                                                setOpenLocation(!openLocation)
-                                            }}
-                                        >
-                                            {i?.name}, {i?.province} {" "}
-                                        </a>
+                                            {(cleanAccents(i?.name)?.includes(
+                                                cleanAccents(searchInput),
+                                            ) ||
+                                                cleanAccents(
+                                                    i?.province,
+                                                )?.includes(
+                                                    cleanAccents(searchInput),
+                                                ) ||
+                                                searchInput === "") && (
+                                                <a
+                                                    className="hover:bg-gray-500 space-y-3 "
+                                                    key={i._id}
+                                                    onClick={() => {
+                                                        setSearchInput(
+                                                            i?.name +
+                                                                ", " +
+                                                                i?.province,
+                                                        );
+                                                        setOpenLocation(false);
+                                                    }}
+                                                >
+                                                    {i?.name}, {i?.province}{" "}
+                                                </a>
                                             )}
                                         </div>
                                     );
-                                    
                                 })}
                             </div>
                         </div>
@@ -217,39 +218,34 @@ export const Search: React.FC<Props> = ({
                     {/* <div className="border-r h-[30px]"></div> */}
                 </div>
 
-                <div
-                    className="hidden lg:inline-block border-l border-gray-500  flex-1"
-                    ref={ref}
-                >
-                    <div
-                        className="hover:bg-gray-500 cursor-pointer rounded-40 px-5 py-1 "
-                        onClick={() => {
-                            setOpenDay(!openDay);
-                           
-                        }}
-                    >
-                        <p className="m-0">Nhận phòng</p>
-                        <p className="text-gray-400">{formattedStartDate}</p>
+                <div className="flex-grow flex" ref={ref}>
+                    <div className="hidden lg:inline-block border-l border-gray-500  flex-1">
+                        <div
+                            className="hover:bg-gray-500 cursor-pointer rounded-40 px-5 py-1 "
+                            onClick={() => {
+                                setOpenDay(!openDay);
+                            }}
+                        >
+                            <p className="m-0">Nhận phòng</p>
+                            <p className="text-gray-400">
+                                {formattedStartDate}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="hidden lg:inline-block border-l border-gray-500  flex-1">
+                        <div
+                            className="hover:bg-gray-500 cursor-pointer rounded-40 px-5 py-1 "
+                            onClick={() => {
+                                setOpenDay(!openDay);
+                            }}
+                        >
+                            <p className="m-0">Trả phòng</p>
+                            <p className="text-gray-400">{formattedEndDate}</p>
+                        </div>
                     </div>
                 </div>
-
-                <div
-                    className="hidden lg:inline-block border-l border-gray-500  flex-1"
-                    ref={ref}
-                >
-                    <div
-                        className="hover:bg-gray-500 cursor-pointer rounded-40 px-5 py-1 "
-                        onClick={() => {
-                            setOpenDay(!openDay);
-                            
-                        }}
-                    >
-                        <p className="m-0">Trả phòng</p>
-                        <p className="text-gray-400">{formattedEndDate}</p>
-                    </div>
-                </div>
-
-                <div className=" border-l border-gray-500 relative">
+                <div className=" border-l border-gray-500 relative" ref={ref}>
                     <div className="hover:bg-gray-500 rounded-40 flex">
                         <div
                             className=" cursor-pointer  lg:px-5 lg:py-1 flex pl-4 "
@@ -274,7 +270,6 @@ export const Search: React.FC<Props> = ({
                                                 pickDay[0].startDate.toISOString(),
                                             endAt: pickDay[0].endDate.toISOString(),
                                             guests: guests,
-                                            
                                         },
                                     });
                                 }}
@@ -287,10 +282,7 @@ export const Search: React.FC<Props> = ({
             </div>
 
             {openDay && (
-                <div
-                    className=" flex flex-col col-span-3 items-center absolute z-10 mx-[30%]"
-                    ref={ref}
-                >
+                <div className=" flex flex-col col-span-3 items-center absolute z-10 mx-[30%]">
                     <DateRangePicker
                         onChange={(item: { selection: any }) =>
                             setPickDay([item.selection])
@@ -349,10 +341,7 @@ export const Search: React.FC<Props> = ({
             )}
 
             {openGuests && (
-                <div
-                    className="flex flex-col absolute z-10 space-y-6 p-4 border-t border-gray-300 shadow-product rounded-xl ml-[60%] mr-[10%] bg-white"
-                    ref={ref}
-                >
+                <div className="flex flex-col absolute z-10 space-y-6 p-4 border-t border-gray-300 shadow-product rounded-xl ml-[60%] mr-[10%] bg-white">
                     <div className="flex justify-between ">
                         <div className="mr-6">
                             <h2 className="text-black"> Người lớn </h2>

@@ -45,7 +45,7 @@ export const HomeHeader: React.FC<Props> = ({
     return (
         <div className={className}>
             <div className="text-center bg-black grid lg:grid-cols-3 grid-cols-2 lg:px-20 px-10 py-3 items-center justify-between">
-                <div className="flex items-center h-10 cursor-pointer my-auto ">
+                <div className="flex items-center h-10 my-auto ">
                     <a className="" href="/">
                         <AirbnbIcon color="white" />
                     </a>

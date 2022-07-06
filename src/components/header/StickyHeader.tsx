@@ -57,7 +57,7 @@ export const StickyHeader: React.FC<Props> = ({
     return (
         <div className="sticky top-0 z-10">
             <div className=" grid grid-cols-3 bg-white shadow-md py-3 lg:px-20 px-10 relative">
-                <div className=" flex items-center h-10 cursor-pointer my-auto ">
+                <div className=" flex items-center h-10  my-auto ">
                     <a className="" href="/">
                         <AirbnbIcon />
                     </a>
