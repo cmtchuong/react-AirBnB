@@ -91,8 +91,6 @@ export const Search: React.FC<Props> = ({
         setOpenDay(false);
     };
 
-    console.log(openLocation, openGuests, openDay);
-
     const handleClickInside = () => {
         // Your custom logic here
     };
@@ -244,6 +242,24 @@ export const Search: React.FC<Props> = ({
                             <p className="text-gray-400">{formattedEndDate}</p>
                         </div>
                     </div>
+
+                    {openDay && (
+                        <div className=" flex flex-col col-span-3 items-center absolute z-10 top-[70px] mx-[-10%]">
+                            <DateRangePicker
+                                onChange={(item: { selection: any }) =>
+                                    setPickDay([item.selection])
+                                }
+                                showSelectionPreview={true}
+                                moveRangeOnFirstSelection={false}
+                                months={2}
+                                ranges={pickDay}
+                                direction="horizontal"
+                                rangeColors={["#ff385c"]}
+                                startDate={new Date()}
+                                endDate={pickDay[0].endDate}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className=" border-l border-gray-500 relative" ref={ref}>
                     <div className="hover:bg-gray-500 rounded-40 flex">
@@ -278,129 +294,69 @@ export const Search: React.FC<Props> = ({
                             </a>
                         </div>
                     </div>
+                    {openGuests && (
+                        <div className="flex flex-col absolute z-10 space-y-6 p-4 border-t border-gray-300 shadow-product rounded-xl top-[70px] w-[300px] mx-[-80%] bg-white">
+                            <div className="flex justify-between ">
+                                <div className="mr-6">
+                                    <h2 className="text-black"> Người lớn </h2>
+                                    <p className="">Từ 13 tuổi trở lên</p>
+                                </div>
+
+                                <div className="flex items-center">
+                                    <PlusSmIcon
+                                        className="w-8 h-8 p-1 text-black font-normal rounded-40 border cursor-pointer"
+                                        onClick={() => {
+                                            setAdults(adults + 1);
+                                        }}
+                                    />
+                                    <div className="text-black text-xl mx-4">
+                                        {adults}
+                                    </div>
+                                    <MinusSmIcon
+                                        className="w-8 h-8 p-1 text-black font-normal rounded-40 border cursor-pointer"
+                                        onClick={() => {
+                                            setAdults(adults - 1);
+
+                                            adults <= 1
+                                                ? setAdults(1)
+                                                : setAdults(adults - 1);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <div className="mr-6">
+                                    <h2 className="text-black"> Trẻ em </h2>
+                                    <p className="">Từ 13 tuổi trở xuống</p>
+                                </div>
+
+                                <div className="flex items-center">
+                                    <PlusSmIcon
+                                        className="w-8 h-8 p-1 text-black font-normal rounded-40 border cursor-pointer"
+                                        onClick={() => {
+                                            setChildren(children + 1);
+                                        }}
+                                    />
+                                    <div className="text-black text-xl mx-4">
+                                        {children}
+                                    </div>
+                                    <MinusSmIcon
+                                        className="w-8 h-8 p-1 text-black font-normal rounded-40 border cursor-pointer"
+                                        onClick={() => {
+                                            setChildren(children - 1);
+
+                                            children <= 0
+                                                ? setChildren(0)
+                                                : setChildren(children - 1);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
-
-            {openDay && (
-                <div className=" flex flex-col col-span-3 items-center absolute z-10 mx-[30%]">
-                    <DateRangePicker
-                        onChange={(item: { selection: any }) =>
-                            setPickDay([item.selection])
-                        }
-                        showSelectionPreview={true}
-                        moveRangeOnFirstSelection={false}
-                        months={2}
-                        ranges={pickDay}
-                        direction="horizontal"
-                        rangeColors={["#ff385c"]}
-                        startDate={new Date()}
-                        endDate={pickDay[0].endDate}
-                    />
-
-                    {/* <div className="flex items-center border-b mb-3 w-[58%] bg-white">
-                        <h2 className="flex-grow ">Số lượng khách:</h2>
-
-                        <UsersIcon className="h-5 mr-2" />
-                        <input
-                            value={guests}
-                            onChange={(e) => setGuests(Number(e.target.value))}
-                            type="number"
-                            className="text-lg outline-none text-red-500 w-8"
-                            min={1}
-                        />
-                    </div> */}
-
-                    {/* <div className="flex space-x-20">
-                        <button
-                            className="flex-grow hover:bg-gray-500 hover:text-black py-3 px-5 font-semibold rounded-full"
-                            onClick={resetInput}
-                        >
-                            Đóng
-                        </button>
-                        <button className="flex-grow text-red-500 hover:bg-red-500 hover:text-white py-3 px-5 font-semibold rounded-full">
-                            <a
-                                onClick={() => {
-                                    Router.push({
-                                        pathname: "/search",
-                                        query: {
-                                            location: searchInput,
-                                            startAt:
-                                                pickDay[0].startDate.toISOString(),
-                                            endAt: pickDay[0].endDate.toISOString(),
-                                            guests: guests,
-                                            page: 1,
-                                        },
-                                    });
-                                }}
-                            >
-                                Tìm kiếm
-                            </a>
-                        </button>
-                    </div> */}
-                </div>
-            )}
-
-            {openGuests && (
-                <div className="flex flex-col absolute z-10 space-y-6 p-4 border-t border-gray-300 shadow-product rounded-xl ml-[60%] mr-[10%] bg-white">
-                    <div className="flex justify-between ">
-                        <div className="mr-6">
-                            <h2 className="text-black"> Người lớn </h2>
-                            <p className="">Từ 13 tuổi trở lên</p>
-                        </div>
-
-                        <div className="flex items-center">
-                            <PlusSmIcon
-                                className="w-8 h-8 p-1 text-black font-normal rounded-40 border cursor-pointer"
-                                onClick={() => {
-                                    setAdults(adults + 1);
-                                }}
-                            />
-                            <div className="text-black text-xl mx-4">
-                                {adults}
-                            </div>
-                            <MinusSmIcon
-                                className="w-8 h-8 p-1 text-black font-normal rounded-40 border cursor-pointer"
-                                onClick={() => {
-                                    setAdults(adults - 1);
-
-                                    adults <= 1
-                                        ? setAdults(1)
-                                        : setAdults(adults - 1);
-                                }}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex justify-between">
-                        <div className="mr-6">
-                            <h2 className="text-black"> Trẻ em </h2>
-                            <p className="">Từ 13 tuổi trở xuống</p>
-                        </div>
-
-                        <div className="flex items-center">
-                            <PlusSmIcon
-                                className="w-8 h-8 p-1 text-black font-normal rounded-40 border cursor-pointer"
-                                onClick={() => {
-                                    setChildren(children + 1);
-                                }}
-                            />
-                            <div className="text-black text-xl mx-4">
-                                {children}
-                            </div>
-                            <MinusSmIcon
-                                className="w-8 h-8 p-1 text-black font-normal rounded-40 border cursor-pointer"
-                                onClick={() => {
-                                    setChildren(children - 1);
-
-                                    children <= 0
-                                        ? setChildren(0)
-                                        : setChildren(children - 1);
-                                }}
-                            />
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
