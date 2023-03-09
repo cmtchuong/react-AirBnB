@@ -2,15 +2,42 @@
 
 
 This project was made during training time in Cybersoft, as a final project. Due to the shortage of free time, I can't do as many functions as I want. There are many more things to improve and hopefully I can make it soon.
+<br/>
+<b>*API unfornutately expired, will fix it asap ^^</b>
 
 Lists of functions:
 - Filter locations and search for rooms with that location.
+
+![image](https://user-images.githubusercontent.com/64649334/224129795-c6602da4-0140-4570-b125-48386bafbe6c.png)
+
+![image](https://user-images.githubusercontent.com/64649334/224129906-8c2f28f0-3698-456a-a6c5-2f35e3535ded.png)
+
 - Room detail
+
+![image](https://user-images.githubusercontent.com/64649334/224129959-c01ec529-2c44-4f73-9baf-f02b8ee82894.png)
+
 - Confirm Payment
+
+![image](https://user-images.githubusercontent.com/64649334/224130024-d8fdc1e2-9761-4637-9917-25f7966bac70.png)
+
 - Register and Login
+
+![image](https://user-images.githubusercontent.com/64649334/224130767-dba22342-6d29-4034-8f52-6107162e6ddb.png)
+
+![image](https://user-images.githubusercontent.com/64649334/224130832-ee6cc4ff-96ba-4ed9-b6ec-e4282e2d7aa9.png)
+
+- User page
+
+![image](https://user-images.githubusercontent.com/64649334/224131005-bc0e17d3-1177-4ca9-99de-0eef5177c2aa.png)
+
 - Admin that can manage users, locations and rooms
 
-Generated with [superplate](https://github.com/pankod/superplate).
+![image](https://user-images.githubusercontent.com/64649334/224131037-f3917368-1e7a-48b8-a191-246d76c7c3e2.png)
+
+
+
+
+The base is generated with [superplate](https://github.com/pankod/superplate).
 
 ## Getting Started
 
